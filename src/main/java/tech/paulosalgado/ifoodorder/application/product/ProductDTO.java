@@ -1,13 +1,14 @@
 package tech.paulosalgado.ifoodorder.application.product;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
+@Data
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
-@Getter
 public class ProductDTO {
 
     private UUID id;
