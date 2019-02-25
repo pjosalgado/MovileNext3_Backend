@@ -1,8 +1,10 @@
 package tech.paulosalgado.ifoodorder.infrastructure.repository;
 
 import org.springframework.data.repository.CrudRepository;
-import tech.paulosalgado.ifoodorder.domain.Product;
+import tech.paulosalgado.ifoodorder.domain.product.Product;
 
-public interface ProductRepositorySpringData extends CrudRepository<Product, String> {
+import java.util.UUID;
+
+public interface ProductRepositorySpringData extends CrudRepository<Product, UUID> {
 
 }

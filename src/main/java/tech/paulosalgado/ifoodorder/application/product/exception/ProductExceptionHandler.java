@@ -1,4 +1,4 @@
-package tech.paulosalgado.ifoodorder.application.exception.product;
+package tech.paulosalgado.ifoodorder.application.product.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

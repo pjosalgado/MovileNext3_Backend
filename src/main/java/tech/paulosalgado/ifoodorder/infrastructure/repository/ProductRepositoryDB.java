@@ -2,11 +2,12 @@ package tech.paulosalgado.ifoodorder.infrastructure.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import tech.paulosalgado.ifoodorder.domain.Product;
-import tech.paulosalgado.ifoodorder.domain.ProductRepository;
+import tech.paulosalgado.ifoodorder.domain.product.Product;
+import tech.paulosalgado.ifoodorder.domain.product.ProductRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class ProductRepositoryDB implements ProductRepository {
@@ -20,7 +21,7 @@ public class ProductRepositoryDB implements ProductRepository {
         return products;
     }
 
-    public Product findById(String id) {
+    public Product findById(UUID id) {
         return repository.findById(id).orElse(null);
     }
 

@@ -1,4 +1,4 @@
-package tech.paulosalgado.ifoodorder.domain;
+package tech.paulosalgado.ifoodorder.domain.customer;
 
 public class Customer {
 

@@ -1,10 +1,7 @@
-package tech.paulosalgado.ifoodorder.domain;
+package tech.paulosalgado.ifoodorder.domain.product;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import tech.paulosalgado.ifoodorder.application.exception.product.ProductCreationException;
+import lombok.*;
+import tech.paulosalgado.ifoodorder.application.product.exception.ProductCreationException;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -18,19 +15,19 @@ import java.util.UUID;
 public class Product {
 
     @Id
-    private String id;
+    private UUID id;
 
     private String name;
     private BigDecimal price;
 
     public static class Builder {
 
-        private String id;
+        private UUID id;
         private String name;
         private BigDecimal price;
 
         public Builder() {
-            this.id = UUID.randomUUID().toString();
+            this.id = UUID.randomUUID();
         }
 
         public Builder withName(String name) throws ProductCreationException {

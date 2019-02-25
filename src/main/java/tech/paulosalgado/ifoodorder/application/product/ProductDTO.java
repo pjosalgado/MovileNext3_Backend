@@ -1,15 +1,16 @@
-package tech.paulosalgado.ifoodorder.domain.dto;
+package tech.paulosalgado.ifoodorder.application.product;
 
 import lombok.Builder;
 import lombok.Getter;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Builder
 @Getter
-public class ProductQuery {
+public class ProductDTO {
 
-    private String id;
+    private UUID id;
     private String name;
     private BigDecimal price;
 
