@@ -2,6 +2,7 @@ package tech.paulosalgado.ifoodorder.domain.product;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tech.paulosalgado.ifoodorder.domain.product.exception.ProductNotFoundException;
 
 import java.util.List;
 import java.util.UUID;
@@ -16,8 +17,15 @@ public class ProductServiceImpl implements ProductService {
         return repository.findAll();
     }
 
-    public Product find(UUID id) {
-        return repository.findById(id);
+    public Product findById(UUID id) throws ProductNotFoundException {
+
+        Product product = repository.findById(id);
+
+        if (product == null) {
+            throw new ProductNotFoundException(id);
+        }
+
+        return product;
     }
 
     public Product save(Product product) {

@@ -1,4 +1,4 @@
-package tech.paulosalgado.ifoodorder.application.exception;
+package tech.paulosalgado.ifoodorder.infrastructure.web.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,7 +1,7 @@
 package tech.paulosalgado.ifoodorder.application.product;
 
 import tech.paulosalgado.ifoodorder.domain.product.Product;
-import tech.paulosalgado.ifoodorder.application.product.exception.ProductCreationException;
+import tech.paulosalgado.ifoodorder.domain.product.exception.ProductCreationException;
 
 public abstract class ProductFactory {
 

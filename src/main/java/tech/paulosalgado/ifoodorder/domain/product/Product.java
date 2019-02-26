@@ -1,7 +1,7 @@
 package tech.paulosalgado.ifoodorder.domain.product;
 
 import lombok.*;
-import tech.paulosalgado.ifoodorder.application.product.exception.ProductCreationException;
+import tech.paulosalgado.ifoodorder.domain.product.exception.ProductCreationException;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

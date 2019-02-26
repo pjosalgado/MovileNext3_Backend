@@ -1,4 +1,4 @@
-package tech.paulosalgado.ifoodorder.application.product.exception;
+package tech.paulosalgado.ifoodorder.domain.product.exception;
 
 public class ProductCreationException extends Exception {
 

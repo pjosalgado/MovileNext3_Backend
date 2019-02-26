@@ -1,4 +1,4 @@
-package tech.paulosalgado.ifoodorder.infrastructure.repository;
+package tech.paulosalgado.ifoodorder.infrastructure.repository.product;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

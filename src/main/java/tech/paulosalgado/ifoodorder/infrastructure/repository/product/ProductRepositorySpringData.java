@@ -1,4 +1,4 @@
-package tech.paulosalgado.ifoodorder.infrastructure.repository;
+package tech.paulosalgado.ifoodorder.infrastructure.repository.product;
 
 import org.springframework.data.repository.CrudRepository;
 import tech.paulosalgado.ifoodorder.domain.product.Product;

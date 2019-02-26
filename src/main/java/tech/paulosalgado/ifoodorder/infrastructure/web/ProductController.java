@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tech.paulosalgado.ifoodorder.application.product.ProductDTO;
 import tech.paulosalgado.ifoodorder.application.product.ProductFactory;
-import tech.paulosalgado.ifoodorder.application.product.exception.ProductCreationException;
-import tech.paulosalgado.ifoodorder.application.product.exception.ProductNotFoundException;
+import tech.paulosalgado.ifoodorder.domain.product.exception.ProductCreationException;
+import tech.paulosalgado.ifoodorder.domain.product.exception.ProductNotFoundException;
 import tech.paulosalgado.ifoodorder.domain.product.Product;
 import tech.paulosalgado.ifoodorder.domain.product.ProductService;
 
@@ -32,13 +32,9 @@ public class ProductController {
     @GetMapping("/products/{id}")
     public ProductDTO getProduct(@PathVariable("id") UUID id) throws ProductNotFoundException {
 
-        Product product = service.find(id);
+        Product product = service.findById(id);
 
-        if (product != null) {
-            return ProductFactory.getDTO(product);
-        } else {
-            throw new ProductNotFoundException(id);
-        }
+        return ProductFactory.getDTO(product);
     }
 
     @PostMapping("/products")
