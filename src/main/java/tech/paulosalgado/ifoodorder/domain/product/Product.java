@@ -30,6 +30,16 @@ public class Product {
             this.id = UUID.randomUUID();
         }
 
+        public Builder withID(UUID id) throws ProductCreationException {
+
+            if (id == null) {
+                throw new ProductCreationException("id must be valid");
+            }
+
+            this.id = id;
+            return this;
+        }
+
         public Builder withName(String name) throws ProductCreationException {
 
             if (name == null || name.isEmpty()) {

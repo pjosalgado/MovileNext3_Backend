@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
+@Table(name = "order_request")
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
@@ -32,7 +33,7 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
 
-    private BigDecimal total;
+    private BigDecimal totalWithDiscounts;
     private LocalDateTime date;
 
     public static class Builder {
@@ -41,11 +42,21 @@ public class Order {
         private Customer customer;
         private List<Product> products;
         private PaymentMethod paymentMethod;
-        private BigDecimal total;
+        private BigDecimal totalWithDiscounts;
         private LocalDateTime date;
 
         public Builder() {
             this.id = UUID.randomUUID();
+        }
+
+        public Order.Builder withID(UUID id) throws OrderCreationException {
+
+            if (id == null) {
+                throw new OrderCreationException("id must be valid");
+            }
+
+            this.id = id;
+            return this;
         }
 
         public Order.Builder withCustomer(Customer customer) throws OrderCreationException {
@@ -58,16 +69,48 @@ public class Order {
             return this;
         }
 
-        // TODO products
+        public Order.Builder withProducts(List<Product> products) throws OrderCreationException {
 
-        // TODO paymentMethod
+            if (products == null || products.isEmpty()) {
+                throw new OrderCreationException("products must be valid");
+            }
 
-        // TODO total
+            this.products = products;
+            return this;
+        }
 
-        // TODO date
+        public Order.Builder withPaymentMethod(PaymentMethod paymentMethod) throws OrderCreationException {
+
+            if (paymentMethod == null) {
+                throw new OrderCreationException("paymentMethod must be valid");
+            }
+
+            this.paymentMethod = paymentMethod;
+            return this;
+        }
+
+        public Order.Builder withTotalWithDiscounts(BigDecimal totalWithDiscounts) throws OrderCreationException {
+
+            if (totalWithDiscounts == null || totalWithDiscounts.doubleValue() < 0) {
+                throw new OrderCreationException("totalWithDiscounts must be valid");
+            }
+
+            this.totalWithDiscounts = totalWithDiscounts;
+            return this;
+        }
+
+        public Order.Builder withDate(LocalDateTime date) throws OrderCreationException {
+
+            if (date == null) {
+                throw new OrderCreationException("date must be valid");
+            }
+
+            this.date = date;
+            return this;
+        }
 
         public Order build() {
-            return new Order(this.id, this.customer, this.products, this.paymentMethod, this.total, this.date);
+            return new Order(this.id, this.customer, this.products, this.paymentMethod, this.totalWithDiscounts, this.date);
         }
 
     }

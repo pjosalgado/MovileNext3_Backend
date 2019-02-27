@@ -34,6 +34,16 @@ public class Customer {
             this.id = UUID.randomUUID();
         }
 
+        public Customer.Builder withID(UUID id) throws CustomerCreationException {
+
+            if (id == null) {
+                throw new CustomerCreationException("id must be valid");
+            }
+
+            this.id = id;
+            return this;
+        }
+
         public Customer.Builder withName(String name) throws CustomerCreationException {
 
             if (name == null || name.isEmpty()) {
