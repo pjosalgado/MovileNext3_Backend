@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import tech.paulosalgado.ifoodorder.domain.customer.exception.CustomerCreationException;
+import tech.paulosalgado.ifoodorder.domain.product.exception.ProductCreationException;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

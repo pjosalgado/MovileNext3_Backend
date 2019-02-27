@@ -12,6 +12,12 @@ public abstract class ProductFactory {
                 .build();
     }
 
+    public static Product getProductWithOnlyId(ProductDTO productDTO) throws ProductCreationException {
+        return new Product.Builder()
+                .withID(productDTO.getId())
+                .build();
+    }
+
     public static ProductDTO getDTO(Product product) {
         return ProductDTO.builder()
                 .id(product.getId())

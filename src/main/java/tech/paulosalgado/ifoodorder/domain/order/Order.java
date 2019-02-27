@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import tech.paulosalgado.ifoodorder.domain.customer.Customer;
 import tech.paulosalgado.ifoodorder.domain.order.exception.OrderCreationException;
 import tech.paulosalgado.ifoodorder.domain.product.Product;
+import tech.paulosalgado.ifoodorder.domain.product.exception.ProductCreationException;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

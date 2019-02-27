@@ -12,6 +12,12 @@ public abstract class CustomerFactory {
                 .build();
     }
 
+    public static Customer getCustomerWithOnlyId(CustomerDTO customerDTO) throws CustomerCreationException {
+        return new Customer.Builder()
+                .withID(customerDTO.getId())
+                .build();
+    }
+
     public static CustomerDTO getDTO(Customer customer) {
         return CustomerDTO.builder()
                 .id(customer.getId())

@@ -12,19 +12,21 @@ import tech.paulosalgado.ifoodorder.domain.product.exception.ProductCreationExce
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class OrderFactory {
 
-    public static Order getCustomer(OrderDTO orderDTO) throws OrderCreationException, CustomerCreationException, ProductCreationException {
+    public static Order getOrder(OrderDTO orderDTO) throws OrderCreationException, CustomerCreationException, ProductCreationException {
 
         List<Product> products = new ArrayList();
         
         for (ProductDTO productDTO : orderDTO.getProducts()) {
-            products.add(ProductFactory.getProduct(productDTO));
+            products.add(ProductFactory.getProductWithOnlyId(productDTO));
         }
 
         return new Order.Builder()
-                .withCustomer(CustomerFactory.getCustomer(orderDTO.getCustomer()))
+                .withID(orderDTO.getId())
+                .withCustomer(CustomerFactory.getCustomerWithOnlyId(orderDTO.getCustomer()))
                 .withProducts(products)
                 .withPaymentMethod(PaymentMethod.get(orderDTO.getPaymentMethod()))
                 .withTotalWithDiscounts(orderDTO.getTotalWithDiscounts())
@@ -32,12 +34,17 @@ public abstract class OrderFactory {
                 .build();
     }
 
-//    public static OrderDTO getDTO(Order order) {
-//        return OrderDTO.builder()
-//                .id(customer.getId())
-//                .name(customer.getName())
-//                .cpf(customer.getCpf())
-//                .build();
-//    }
+    public static OrderDTO getDTO(Order order) {
+        return OrderDTO.builder()
+                .id(order.getId())
+                .customer(CustomerFactory.getDTO(order.getCustomer()))
+                .products(order.getProducts().stream()
+                        .map(product -> ProductFactory.getDTO(product))
+                        .collect(Collectors.toList()))
+                .paymentMethod(order.getPaymentMethod().name())
+                .totalWithDiscounts(order.getTotalWithDiscounts())
+                .date(order.getDate())
+                .build();
+    }
 
 }
