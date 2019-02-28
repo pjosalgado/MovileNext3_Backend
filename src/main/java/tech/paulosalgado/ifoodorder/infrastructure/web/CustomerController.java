@@ -1,5 +1,6 @@
 package tech.paulosalgado.ifoodorder.infrastructure.web;
 
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tech.paulosalgado.ifoodorder.application.customer.CustomerDTO;
@@ -12,6 +13,7 @@ import tech.paulosalgado.ifoodorder.domain.customer.exception.CustomerNotFoundEx
 import java.util.UUID;
 
 @RestController
+@Api(tags = "Customer")
 public class CustomerController {
 
     @Autowired

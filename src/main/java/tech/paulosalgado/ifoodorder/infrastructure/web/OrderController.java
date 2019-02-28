@@ -1,5 +1,6 @@
 package tech.paulosalgado.ifoodorder.infrastructure.web;
 
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tech.paulosalgado.ifoodorder.application.order.OrderDTO;
@@ -14,6 +15,7 @@ import tech.paulosalgado.ifoodorder.domain.product.exception.ProductCreationExce
 import java.util.UUID;
 
 @RestController
+@Api(tags = "Order")
 public class OrderController {
 
     @Autowired
