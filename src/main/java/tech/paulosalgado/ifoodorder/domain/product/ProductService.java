@@ -8,7 +8,7 @@ import java.util.UUID;
 public interface ProductService {
 
     List<Product> findAll();
-    Product findById(UUID id) throws ProductNotFoundException;
+    Product findById(UUID productId) throws ProductNotFoundException;
 
     Product save(Product product);
 

@@ -17,10 +17,10 @@ public class CustomerController {
     @Autowired
     private CustomerService service;
 
-    @GetMapping("/customers/{id}")
-    public CustomerDTO getCustomer(@PathVariable("id") UUID id) throws CustomerNotFoundException {
+    @GetMapping("/customers/{customerId}")
+    public CustomerDTO getCustomer(@PathVariable("customerId") UUID customerId) throws CustomerNotFoundException {
 
-        Customer customer = service.findById(id);
+        Customer customer = service.findById(customerId);
 
         return CustomerFactory.getDTO(customer);
     }

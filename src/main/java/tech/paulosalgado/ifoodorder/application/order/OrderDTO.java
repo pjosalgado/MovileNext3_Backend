@@ -1,8 +1,8 @@
 package tech.paulosalgado.ifoodorder.application.order;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.*;
-import tech.paulosalgado.ifoodorder.application.customer.CustomerDTO;
-import tech.paulosalgado.ifoodorder.application.product.ProductDTO;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -13,11 +13,12 @@ import java.util.UUID;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
+@JsonInclude(Include.NON_NULL)
 public class OrderDTO {
 
-    private UUID id;
-    private CustomerDTO customer;
-    private List<ProductDTO> products;
+    private UUID orderId;
+    private UUID customerId;
+    private List<UUID> products;
     private String paymentMethod;
     private BigDecimal totalWithDiscounts;
     private LocalDateTime date;

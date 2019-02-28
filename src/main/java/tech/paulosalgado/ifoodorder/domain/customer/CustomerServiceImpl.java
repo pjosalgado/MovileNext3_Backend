@@ -13,12 +13,12 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerRepository repository;
 
-    public Customer findById(UUID id) throws CustomerNotFoundException {
+    public Customer findById(UUID customerId) throws CustomerNotFoundException {
 
-        Customer customer = repository.findById(id);
+        Customer customer = repository.findById(customerId);
 
         if (customer == null) {
-            throw new CustomerNotFoundException(id);
+            throw new CustomerNotFoundException(customerId);
         }
 
         return customer;

@@ -19,10 +19,10 @@ public class OrderController {
     @Autowired
     private OrderService service;
 
-    @GetMapping("/orders/{id}")
-    public OrderDTO getOrder(@PathVariable("id") UUID id) throws OrderNotFoundException {
+    @GetMapping("/orders/{orderId}")
+    public OrderDTO getOrder(@PathVariable("orderId") UUID orderId) throws OrderNotFoundException {
 
-        Order order = service.findById(id);
+        Order order = service.findById(orderId);
 
         return OrderFactory.getDTO(order);
     }
@@ -33,7 +33,7 @@ public class OrderController {
         Order order = OrderFactory.getOrder(orderDTO);
         order = service.save(order);
 
-        return OrderFactory.getDTO(order);
+        return OrderFactory.getSimpleDTO(order);
     }
 
 }

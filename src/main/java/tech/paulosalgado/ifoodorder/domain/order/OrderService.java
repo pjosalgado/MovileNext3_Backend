@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public interface OrderService {
 
-    Order findById(UUID id) throws OrderNotFoundException;
+    Order findById(UUID orderId) throws OrderNotFoundException;
 
     Order save(Order order) throws OrderCreationException;
 

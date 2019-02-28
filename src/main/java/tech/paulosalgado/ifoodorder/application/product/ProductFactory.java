@@ -3,6 +3,8 @@ package tech.paulosalgado.ifoodorder.application.product;
 import tech.paulosalgado.ifoodorder.domain.product.Product;
 import tech.paulosalgado.ifoodorder.domain.product.exception.ProductCreationException;
 
+import java.util.UUID;
+
 public abstract class ProductFactory {
 
     public static Product getProduct(ProductDTO productDTO) throws ProductCreationException {
@@ -12,15 +14,15 @@ public abstract class ProductFactory {
                 .build();
     }
 
-    public static Product getProductWithOnlyId(ProductDTO productDTO) throws ProductCreationException {
+    public static Product getProduct(UUID productId) throws ProductCreationException {
         return new Product.Builder()
-                .withID(productDTO.getId())
+                .withProductId(productId)
                 .build();
     }
 
     public static ProductDTO getDTO(Product product) {
         return ProductDTO.builder()
-                .id(product.getId())
+                .productId(product.getProductId())
                 .name(product.getName())
                 .price(product.getPrice())
                 .build();

@@ -17,12 +17,12 @@ public class ProductServiceImpl implements ProductService {
         return repository.findAll();
     }
 
-    public Product findById(UUID id) throws ProductNotFoundException {
+    public Product findById(UUID productId) throws ProductNotFoundException {
 
-        Product product = repository.findById(id);
+        Product product = repository.findById(productId);
 
         if (product == null) {
-            throw new ProductNotFoundException(id);
+            throw new ProductNotFoundException(productId);
         }
 
         return product;

@@ -1,7 +1,6 @@
 package tech.paulosalgado.ifoodorder.application.order;
 
 import tech.paulosalgado.ifoodorder.application.customer.CustomerFactory;
-import tech.paulosalgado.ifoodorder.application.product.ProductDTO;
 import tech.paulosalgado.ifoodorder.application.product.ProductFactory;
 import tech.paulosalgado.ifoodorder.domain.customer.exception.CustomerCreationException;
 import tech.paulosalgado.ifoodorder.domain.order.Order;
@@ -12,6 +11,7 @@ import tech.paulosalgado.ifoodorder.domain.product.exception.ProductCreationExce
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public abstract class OrderFactory {
@@ -20,13 +20,12 @@ public abstract class OrderFactory {
 
         List<Product> products = new ArrayList();
         
-        for (ProductDTO productDTO : orderDTO.getProducts()) {
-            products.add(ProductFactory.getProductWithOnlyId(productDTO));
+        for (UUID productId : orderDTO.getProducts()) {
+            products.add(ProductFactory.getProduct(productId));
         }
 
         return new Order.Builder()
-                .withID(orderDTO.getId())
-                .withCustomer(CustomerFactory.getCustomerWithOnlyId(orderDTO.getCustomer()))
+                .withCustomer(CustomerFactory.getCustomer(orderDTO.getCustomerId()))
                 .withProducts(products)
                 .withPaymentMethod(PaymentMethod.get(orderDTO.getPaymentMethod()))
                 .withTotalWithDiscounts(orderDTO.getTotalWithDiscounts())
@@ -36,14 +35,20 @@ public abstract class OrderFactory {
 
     public static OrderDTO getDTO(Order order) {
         return OrderDTO.builder()
-                .id(order.getId())
-                .customer(CustomerFactory.getDTO(order.getCustomer()))
+                .orderId(order.getOrderId())
+                .customerId(order.getCustomer().getCustomerId())
                 .products(order.getProducts().stream()
-                        .map(product -> ProductFactory.getDTO(product))
+                        .map(product -> product.getProductId())
                         .collect(Collectors.toList()))
                 .paymentMethod(order.getPaymentMethod().name())
                 .totalWithDiscounts(order.getTotalWithDiscounts())
                 .date(order.getDate())
+                .build();
+    }
+
+    public static OrderDTO getSimpleDTO(Order order) {
+        return OrderDTO.builder()
+                .orderId(order.getOrderId())
                 .build();
     }
 

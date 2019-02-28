@@ -3,6 +3,8 @@ package tech.paulosalgado.ifoodorder.application.customer;
 import tech.paulosalgado.ifoodorder.domain.customer.Customer;
 import tech.paulosalgado.ifoodorder.domain.customer.exception.CustomerCreationException;
 
+import java.util.UUID;
+
 public abstract class CustomerFactory {
 
     public static Customer getCustomer(CustomerDTO customerDTO) throws CustomerCreationException {
@@ -12,15 +14,15 @@ public abstract class CustomerFactory {
                 .build();
     }
 
-    public static Customer getCustomerWithOnlyId(CustomerDTO customerDTO) throws CustomerCreationException {
+    public static Customer getCustomer(UUID customerId) throws CustomerCreationException {
         return new Customer.Builder()
-                .withID(customerDTO.getId())
+                .withCustomerId(customerId)
                 .build();
     }
 
     public static CustomerDTO getDTO(Customer customer) {
         return CustomerDTO.builder()
-                .id(customer.getId())
+                .customerId(customer.getCustomerId())
                 .name(customer.getName())
                 .cpf(customer.getCpf())
                 .build();

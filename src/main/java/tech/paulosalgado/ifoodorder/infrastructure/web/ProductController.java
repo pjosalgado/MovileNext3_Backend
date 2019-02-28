@@ -29,10 +29,10 @@ public class ProductController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/products/{id}")
-    public ProductDTO getProduct(@PathVariable("id") UUID id) throws ProductNotFoundException {
+    @GetMapping("/products/{productId}")
+    public ProductDTO getProduct(@PathVariable("productId") UUID productId) throws ProductNotFoundException {
 
-        Product product = service.findById(id);
+        Product product = service.findById(productId);
 
         return ProductFactory.getDTO(product);
     }

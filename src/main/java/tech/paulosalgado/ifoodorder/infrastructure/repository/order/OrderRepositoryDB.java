@@ -13,8 +13,8 @@ public class OrderRepositoryDB implements OrderRepository {
     @Autowired
     private OrderRepositorySpringData repository;
 
-    public Order findById(UUID id) {
-        return repository.findById(id).orElse(null);
+    public Order findById(UUID orderId) {
+        return repository.findById(orderId).orElse(null);
     }
 
     public Order save(Order order) {

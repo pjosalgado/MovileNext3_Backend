@@ -15,17 +15,17 @@ import tech.paulosalgado.ifoodorder.domain.customer.exception.CustomerNotFoundEx
 public class CustomerExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = CustomerCreationException.class)
-    public ResponseEntity<GenericServiceException> handleCustomerCreationException(CustomerCreationException exception) {
+    public ResponseEntity<WebServiceException> handleCustomerCreationException(CustomerCreationException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(new GenericServiceException("invalid_input", exception.getMessage()));
+                .body(new WebServiceException("invalid_input", exception.getMessage()));
     }
 
     @ExceptionHandler(value = CustomerNotFoundException.class)
-    public ResponseEntity<GenericServiceException> handleCustomerNotFoundException(CustomerNotFoundException exception) {
+    public ResponseEntity<WebServiceException> handleCustomerNotFoundException(CustomerNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(new GenericServiceException("not_found", exception.getMessage()));
+                .body(new WebServiceException("not_found", exception.getMessage()));
     }
 
 }

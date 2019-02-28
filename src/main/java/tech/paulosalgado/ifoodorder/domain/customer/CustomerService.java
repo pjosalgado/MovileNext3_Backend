@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public interface CustomerService {
 
-    Customer findById(UUID id) throws CustomerNotFoundException;
+    Customer findById(UUID customerId) throws CustomerNotFoundException;
 
     Customer save(Customer customer) throws CustomerCreationException;
 

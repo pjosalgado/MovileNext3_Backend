@@ -11,7 +11,7 @@ import java.util.UUID;
 @Builder
 public class ProductDTO {
 
-    private UUID id;
+    private UUID productId;
     private String name;
     private BigDecimal price;
 

@@ -13,8 +13,8 @@ public class CustomerRepositoryDB implements CustomerRepository {
     @Autowired
     private CustomerRepositorySpringData repository;
 
-    public Customer findById(UUID id) {
-        return repository.findById(id).orElse(null);
+    public Customer findById(UUID customerId) {
+        return repository.findById(customerId).orElse(null);
     }
 
     public Customer findByCpf(String cpf) {

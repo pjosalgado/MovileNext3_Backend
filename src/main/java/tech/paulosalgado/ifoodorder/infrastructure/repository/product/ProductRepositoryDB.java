@@ -21,8 +21,8 @@ public class ProductRepositoryDB implements ProductRepository {
         return products;
     }
 
-    public Product findById(UUID id) {
-        return repository.findById(id).orElse(null);
+    public Product findById(UUID productId) {
+        return repository.findById(productId).orElse(null);
     }
 
     public Product save(Product product) {

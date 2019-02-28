@@ -13,12 +13,12 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderRepository repository;
 
-    public Order findById(UUID id) throws OrderNotFoundException {
+    public Order findById(UUID orderId) throws OrderNotFoundException {
 
-        Order order = repository.findById(id);
+        Order order = repository.findById(orderId);
 
         if (order == null) {
-            throw new OrderNotFoundException(id);
+            throw new OrderNotFoundException(orderId);
         }
 
         return order;

@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public interface OrderRepository {
 
-    Order findById(UUID id);
+    Order findById(UUID orderId);
 
     Order save(Order order);
 

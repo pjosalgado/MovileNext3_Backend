@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import tech.paulosalgado.ifoodorder.domain.customer.exception.CustomerCreationException;
-import tech.paulosalgado.ifoodorder.domain.product.exception.ProductCreationException;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,28 +19,28 @@ import java.util.UUID;
 public class Customer {
 
     @Id
-    private UUID id;
+    private UUID customerId;
 
     private String name;
     private String cpf;
 
     public static class Builder {
 
-        private UUID id;
+        private UUID customerId;
         private String name;
         private String cpf;
 
         public Builder() {
-            this.id = UUID.randomUUID();
+            this.customerId = UUID.randomUUID();
         }
 
-        public Customer.Builder withID(UUID id) throws CustomerCreationException {
+        public Customer.Builder withCustomerId(UUID id) throws CustomerCreationException {
 
             if (id == null) {
-                throw new CustomerCreationException("id must be valid");
+                throw new CustomerCreationException("customerId must be valid");
             }
 
-            this.id = id;
+            this.customerId = id;
             return this;
         }
 
@@ -68,7 +67,7 @@ public class Customer {
         }
 
         public Customer build() {
-            return new Customer(this.id, this.name, this.cpf);
+            return new Customer(this.customerId, this.name, this.cpf);
         }
 
     }

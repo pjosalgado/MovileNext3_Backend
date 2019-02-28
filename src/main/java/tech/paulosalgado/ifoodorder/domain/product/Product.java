@@ -15,28 +15,28 @@ import java.util.UUID;
 public class Product {
 
     @Id
-    private UUID id;
+    private UUID productId;
 
     private String name;
     private BigDecimal price;
 
     public static class Builder {
 
-        private UUID id;
+        private UUID productId;
         private String name;
         private BigDecimal price;
 
         public Builder() {
-            this.id = UUID.randomUUID();
+            this.productId = UUID.randomUUID();
         }
 
-        public Builder withID(UUID id) throws ProductCreationException {
+        public Builder withProductId(UUID id) throws ProductCreationException {
 
             if (id == null) {
-                throw new ProductCreationException("id must be valid");
+                throw new ProductCreationException("productId must be valid");
             }
 
-            this.id = id;
+            this.productId = id;
             return this;
         }
 
@@ -61,7 +61,7 @@ public class Product {
         }
 
         public Product build() {
-            return new Product(this.id, this.name, this.price);
+            return new Product(this.productId, this.name, this.price);
         }
 
     }

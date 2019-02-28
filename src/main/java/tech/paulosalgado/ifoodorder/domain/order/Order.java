@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import tech.paulosalgado.ifoodorder.domain.customer.Customer;
 import tech.paulosalgado.ifoodorder.domain.order.exception.OrderCreationException;
 import tech.paulosalgado.ifoodorder.domain.product.Product;
-import tech.paulosalgado.ifoodorder.domain.product.exception.ProductCreationException;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -23,7 +22,7 @@ import java.util.UUID;
 public class Order {
 
     @Id
-    private UUID id;
+    private UUID orderId;
 
     @ManyToOne
     private Customer customer;
@@ -39,7 +38,7 @@ public class Order {
 
     public static class Builder {
 
-        private UUID id;
+        private UUID orderId;
         private Customer customer;
         private List<Product> products;
         private PaymentMethod paymentMethod;
@@ -47,16 +46,16 @@ public class Order {
         private LocalDateTime date;
 
         public Builder() {
-            this.id = UUID.randomUUID();
+            this.orderId = UUID.randomUUID();
         }
 
-        public Order.Builder withID(UUID id) throws OrderCreationException {
+        public Order.Builder withOrderId(UUID id) throws OrderCreationException {
 
             if (id == null) {
-                throw new OrderCreationException("id must be valid");
+                throw new OrderCreationException("orderId must be valid");
             }
 
-            this.id = id;
+            this.orderId = id;
             return this;
         }
 
@@ -111,7 +110,7 @@ public class Order {
         }
 
         public Order build() {
-            return new Order(this.id, this.customer, this.products, this.paymentMethod, this.totalWithDiscounts, this.date);
+            return new Order(this.orderId, this.customer, this.products, this.paymentMethod, this.totalWithDiscounts, this.date);
         }
 
     }
