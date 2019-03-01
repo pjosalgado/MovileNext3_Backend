@@ -2,6 +2,8 @@ package tech.paulosalgado.ifoodorder.infrastructure.web;
 
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.paulosalgado.ifoodorder.application.customer.CustomerDTO;
 import tech.paulosalgado.ifoodorder.application.customer.CustomerFactory;
@@ -20,20 +22,22 @@ public class CustomerController {
     private CustomerService service;
 
     @GetMapping("/customers/{customerId}")
-    public CustomerDTO getCustomer(@PathVariable("customerId") UUID customerId) throws CustomerNotFoundException {
+    public ResponseEntity<CustomerDTO> getCustomer(@PathVariable("customerId") UUID customerId) throws CustomerNotFoundException {
 
         Customer customer = service.findById(customerId);
 
-        return CustomerFactory.getDTO(customer);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(CustomerFactory.getDTO(customer));
     }
 
     @PostMapping("/customers")
-    public CustomerDTO postCustomer(@RequestBody CustomerDTO customerDTO) throws CustomerCreationException {
+    public ResponseEntity<CustomerDTO> postCustomer(@RequestBody CustomerDTO customerDTO) throws CustomerCreationException {
 
         Customer customer = CustomerFactory.getCustomer(customerDTO);
         customer = service.save(customer);
 
-        return CustomerFactory.getDTO(customer);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(CustomerFactory.getDTO(customer));
     }
 
 }

@@ -29,4 +29,8 @@ public class ProductRepositoryDB implements ProductRepository {
         return repository.save(product);
     }
 
+    public void deleteAll() {
+        repository.deleteAll();
+    }
+
 }
