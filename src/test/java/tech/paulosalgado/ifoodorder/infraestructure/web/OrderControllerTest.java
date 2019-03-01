@@ -2,25 +2,20 @@ package tech.paulosalgado.ifoodorder.infraestructure.web;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import tech.paulosalgado.ifoodorder.AbstractTest;
-import tech.paulosalgado.ifoodorder.application.order.OrderDTO;
 import tech.paulosalgado.ifoodorder.domain.customer.Customer;
 import tech.paulosalgado.ifoodorder.domain.customer.CustomerRepository;
 import tech.paulosalgado.ifoodorder.domain.customer.exception.CustomerCreationException;
 import tech.paulosalgado.ifoodorder.domain.order.Order;
 import tech.paulosalgado.ifoodorder.domain.order.OrderRepository;
-import tech.paulosalgado.ifoodorder.domain.order.PaymentMethod;
 import tech.paulosalgado.ifoodorder.domain.order.exception.OrderCreationException;
 import tech.paulosalgado.ifoodorder.domain.product.Product;
 import tech.paulosalgado.ifoodorder.domain.product.ProductRepository;
 import tech.paulosalgado.ifoodorder.domain.product.exception.ProductCreationException;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -49,25 +44,22 @@ public class OrderControllerTest extends AbstractTest {
 
         super.setupMock();
 
-        customer = customerRepository.save(super.getCustomer());
-        product = productRepository.save(super.getProduct());
-        order = repository.save(super.getOrder(customer, Arrays.asList(product)));
+        customer = customerRepository.save(getCustomer());
+        product = productRepository.save(getProduct());
+        order = repository.save(getOrder(customer, Arrays.asList(product)));
     }
 
     @Test
-    @Ignore
     public void shouldSaveOrder() throws Exception {
+
+        String ORDER_JSON = "{ \"customerId\": \"" + customer.getCustomerId() + "\", " +
+                "\"products\": [ \"" + product.getProductId() + "\" ], " +
+                "\"paymentMethod\": \"CREDIT_CARD\", \"totalWithDiscounts\": 100.00, " +
+                "\"date\": \"2019-02-27T18:00:00\" }";
 
         super.mockMvc.perform(post("/orders")
                 .contentType(MediaType.parseMediaType("application/json"))
-                .content(super.GSON.toJson(OrderDTO.builder()
-                        .customerId(customer.getCustomerId())
-                        .products(Arrays.asList(
-                                product.getProductId()))
-                        .date(LocalDateTime.now())
-                        .paymentMethod(PaymentMethod.MONEY.name())
-                        .totalWithDiscounts(BigDecimal.valueOf(45.99))
-                        .build())))
+                .content(ORDER_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("orderId").isNotEmpty())
                 .andDo(print());
