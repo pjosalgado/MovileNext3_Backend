@@ -25,4 +25,8 @@ public class CustomerRepositoryDB implements CustomerRepository {
         return repository.save(customer);
     }
 
+    public void deleteAll() {
+        repository.deleteAll();
+    }
+
 }
