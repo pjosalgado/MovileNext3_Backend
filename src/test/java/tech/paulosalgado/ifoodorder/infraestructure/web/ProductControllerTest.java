@@ -30,12 +30,9 @@ public class ProductControllerTest extends AbstractTest {
     @Before
     public void setup() throws ProductCreationException {
 
-        super.setupBase();
+        super.setupMock();
 
-        product = repository.save(new Product.Builder()
-                .withName("Pizza Dois Queijos")
-                .withPrice(BigDecimal.valueOf(39.90))
-                .build());
+        product = repository.save(super.getProduct());
     }
 
     @Test

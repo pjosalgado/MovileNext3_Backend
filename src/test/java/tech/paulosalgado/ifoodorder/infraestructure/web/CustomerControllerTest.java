@@ -27,12 +27,9 @@ public class CustomerControllerTest extends AbstractTest {
     @Before
     public void setup() throws CustomerCreationException {
 
-        super.setupBase();
+        super.setupMock();
 
-        customer = repository.save(new Customer.Builder()
-                .withName("Marcos Souza")
-                .withCpf("57642963076")
-                .build());
+        customer = repository.save(super.getCustomer());
     }
 
     @Test

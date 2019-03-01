@@ -21,4 +21,8 @@ public class OrderRepositoryDB implements OrderRepository {
         return repository.save(order);
     }
 
+    public void deleteAll() {
+        repository.deleteAll();
+    }
+
 }
