@@ -27,7 +27,7 @@ public class Order {
     @ManyToOne
     private Customer customer;
 
-    @OneToMany
+    @ManyToMany
     private List<Product> products;
 
     @Enumerated(EnumType.STRING)
