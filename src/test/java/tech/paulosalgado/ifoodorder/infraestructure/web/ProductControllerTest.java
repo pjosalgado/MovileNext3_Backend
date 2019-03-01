@@ -81,6 +81,20 @@ public class ProductControllerTest extends AbstractTest {
     }
 
     @Test
+    public void shouldFindAllProducts() throws Exception {
+
+        super.mockMvc.perform(get("/products"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$[0]").exists())
+                .andExpect(jsonPath("$[0].productId").value(product.getProductId().toString()))
+                .andExpect(jsonPath("$[0].name").value(product.getName()))
+                .andExpect(jsonPath("$[0].price").value(product.getPrice()))
+                .andExpect(jsonPath("$[1]").doesNotExist())
+                .andDo(print());
+    }
+
+    @Test
     public void shouldFailTryFindingNotExistingProduct() throws Exception {
 
         super.mockMvc.perform(get("/products/5413baf4-91df-488e-85d5-2e013ffdbdf9"))
