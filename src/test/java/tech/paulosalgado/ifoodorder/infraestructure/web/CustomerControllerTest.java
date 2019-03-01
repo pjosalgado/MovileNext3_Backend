@@ -29,7 +29,7 @@ public class CustomerControllerTest extends AbstractTest {
 
         super.setupMock();
 
-        customer = repository.save(super.getCustomer());
+        customer = repository.save(getCustomer());
     }
 
     @Test

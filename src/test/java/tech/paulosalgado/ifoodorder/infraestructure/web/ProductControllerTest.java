@@ -32,7 +32,7 @@ public class ProductControllerTest extends AbstractTest {
 
         super.setupMock();
 
-        product = repository.save(super.getProduct());
+        product = repository.save(getProduct());
     }
 
     @Test
