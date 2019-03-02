@@ -17,6 +17,7 @@ import tech.paulosalgado.ifoodorder.domain.product.ProductRepository;
 import tech.paulosalgado.ifoodorder.domain.product.exception.ProductCreationException;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -25,6 +26,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class OrderControllerTest extends AbstractTest {
+
+    private static final String ORDER_JSON = "{ \"customerId\": \"%s\", " +
+            "\"products\": [ \"%s\" ], " +
+            "\"paymentMethod\": \"CREDIT_CARD\", " +
+            "\"totalWithDiscounts\": 100.00, " +
+            "\"date\": \"2019-02-27T18:00:00\" }";
 
     @Autowired
     private OrderRepository repository;
@@ -52,20 +59,35 @@ public class OrderControllerTest extends AbstractTest {
     @Test
     public void shouldSaveOrder() throws Exception {
 
-        String ORDER_JSON = "{ \"customerId\": \"" + customer.getCustomerId() + "\", " +
-                "\"products\": [ \"" + product.getProductId() + "\" ], " +
-                "\"paymentMethod\": \"CREDIT_CARD\", \"totalWithDiscounts\": 100.00, " +
-                "\"date\": \"2019-02-27T18:00:00\" }";
-
         super.mockMvc.perform(post("/orders")
                 .contentType(MediaType.parseMediaType("application/json"))
-                .content(ORDER_JSON))
+                .content(String.format(ORDER_JSON, customer.getCustomerId().toString(), product.getProductId().toString())))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("orderId").isNotEmpty())
                 .andDo(print());
     }
 
-    // TODO: test fail save order, after 'verify if customer and products exists' in 'OrderServiceImpl'
+    @Test
+    public void shouldFailTrySavingOrderWithNoExistingCustomer() throws Exception {
+
+        super.mockMvc.perform(post("/orders")
+                .contentType(MediaType.parseMediaType("application/json"))
+                .content(String.format(ORDER_JSON, UUID.randomUUID().toString(), product.getProductId().toString())))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("type").value("not_found"))
+                .andDo(print());
+    }
+
+    @Test
+    public void shouldFailTrySavingOrderWithNoExistingProduct() throws Exception {
+
+        super.mockMvc.perform(post("/orders")
+                .contentType(MediaType.parseMediaType("application/json"))
+                .content(String.format(ORDER_JSON, customer.getCustomerId().toString(), UUID.randomUUID().toString())))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("type").value("not_found"))
+                .andDo(print());
+    }
 
     @Test
     public void shouldFindOrder() throws Exception {
