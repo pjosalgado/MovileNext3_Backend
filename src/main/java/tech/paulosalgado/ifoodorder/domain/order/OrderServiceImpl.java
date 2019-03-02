@@ -25,7 +25,6 @@ public class OrderServiceImpl implements OrderService {
     }
 
     public Order save(Order order) throws OrderCreationException {
-        // TODO: verify if customer and products exists
         return repository.save(order);
     }
 
